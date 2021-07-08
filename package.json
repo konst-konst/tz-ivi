@@ -1,0 +1,27 @@
+{
+  "name": "tz-ivi",
+  "version": "1.0.0",
+  "description": "tz for ivi vacancy",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kk",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.27.4",
+    "del": "^6.0.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-group-css-media-queries": "^1.2.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-javascript-obfuscator": "^1.1.6",
+    "gulp-pug": "^5.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-uglify-es": "^2.0.0",
+    "sass": "^1.35.2"
+  },
+  "dependencies": {
+    "gulp-clean-css": "^4.3.0"
+  }
+}
