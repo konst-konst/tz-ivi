@@ -4,18 +4,21 @@ let source_folder = "src";
 let path={
     build:{
         html: project_folder + "/",
+        pug: project_folder + "/",
         css: project_folder + "/css/",
         js: project_folder + "/js/",
         img: project_folder + "/img/",
     },
     src:{
         html: source_folder + "/*.html",
+        pug: source_folder + "/*.pug",
         css: source_folder + "/scss/style.scss",
         js: source_folder + "/js/script.js",
         img: source_folder + "/img/**/*.{jpg,png,svg,gif}",
     },
     watch:{
         html: source_folder + "/**/*.html",
+        pug: source_folder + "/**/*.pug",
         css: source_folder + "/scss/**/*.scss",
         js: source_folder + "/js/**/*.js",
         img: source_folder + "/img/**/*.{jpg,png,svg,gif}",
@@ -52,6 +55,15 @@ function html() {
         pretty: true
      }))
     .pipe(dest(path.build.html))
+    .pipe(browsersync.stream())
+}
+
+function pugInclude() {
+    return src(path.src.pug)
+    .pipe(pug({
+        pretty: true
+     }))
+    .pipe(dest(path.build.pug))
     .pipe(browsersync.stream())
 }
 
@@ -95,6 +107,7 @@ function images() {
 
 function watchFiles (params) {
     gulp.watch([path.watch.html],html)
+    gulp.watch([path.watch.pug],pugInclude)
     gulp.watch([path.watch.css],css)
     gulp.watch([path.watch.js],js)
     gulp.watch([path.watch.img],images)
@@ -104,13 +117,14 @@ function clean (params) {
     return del(path.clean);
 }
 
-let build = gulp.series(clean, gulp.parallel(css, js, html, images));
+let build = gulp.series(clean, gulp.parallel(css, js, html, pugInclude, images));
 let watch = gulp.parallel(build, watchFiles, browserSync);
 
 exports.images = images;
 exports.css = css;
 exports.js = js;
 exports.html = html;
+exports.pug = pug;
 exports.build = build;
 exports.watch = watch;
 exports.default = watch;
